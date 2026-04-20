@@ -1,84 +1,67 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package proyectogrupal;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- *
- * @author EAG
- */
 public class Jugador {
- 
-    // Atributos
     private String nombre;
     private int saldo;
-    private int posicion;
-    private boolean enCarcel;
- 
-    // Constructor por defecto
+    private int posicionActual;
+    private boolean estaEnCarcel;
+    private int turnosRestantesCarcel;
+    private List<Propiedad> propiedadesCompradas;
+
     public Jugador() {
-        this.nombre = "Jugador";
-        this.saldo = 1500;
-        this.posicion = 0;
-        this.enCarcel = false;
+        this.propiedadesCompradas = new ArrayList<>();
     }
- 
-    // Constructor por parametros
-    public Jugador(String nombre) {
+
+    public Jugador(String nombre, int saldo, int posicionActual, boolean estaEnCarcel,
+                   int turnosRestantesCarcel, List<Propiedad> propiedadesCompradas) {
         this.nombre = nombre;
-        this.saldo = 1500;
-        this.posicion = 0;
-        this.enCarcel = false;
+        this.saldo = saldo;
+        this.posicionActual = posicionActual;
+        this.estaEnCarcel = estaEnCarcel;
+        this.turnosRestantesCarcel = turnosRestantesCarcel;
+        this.propiedadesCompradas = (propiedadesCompradas != null) ? propiedadesCompradas : new ArrayList<>();
     }
- 
-    // Constructor de copia
+
     public Jugador(Jugador j) {
         this.nombre = j.nombre;
         this.saldo = j.saldo;
-        this.posicion = j.posicion;
-        this.enCarcel = j.enCarcel;
+        this.posicionActual = j.posicionActual;
+        this.estaEnCarcel = j.estaEnCarcel;
+        this.turnosRestantesCarcel = j.turnosRestantesCarcel;
+        this.propiedadesCompradas = new ArrayList<>(j.propiedadesCompradas);
     }
- 
-    // Getters
-    public String getNombre() {
-        return this.nombre;
+
+    public String getNombre() { return nombre; }
+    public int getSaldo() { return saldo; }
+    public int getPosicionActual() { return posicionActual; }
+    public boolean getEstaEnCarcel() { return estaEnCarcel; }
+    public int getTurnosRestantesCarcel() { return turnosRestantesCarcel; }
+    public List<Propiedad> getPropiedadesCompradas() { return propiedadesCompradas; }
+
+    public void setNombre(String nombre) { this.nombre = nombre; }
+    public void setSaldo(int saldo) { this.saldo = saldo; }
+    public void setPosicionActual(int posicionActual) { this.posicionActual = posicionActual; }
+    public void setEstaEnCarcel(boolean estaEnCarcel) { this.estaEnCarcel = estaEnCarcel; }
+    public void setTurnosRestantesCarcel(int turnosRestantesCarcel) { this.turnosRestantesCarcel = turnosRestantesCarcel; }
+    public void setPropiedadesCompradas(List<Propiedad> propiedadesCompradas) {
+        this.propiedadesCompradas = (propiedadesCompradas != null) ? propiedadesCompradas : new ArrayList<>();
     }
- 
-    public int getSaldo() {
-        return this.saldo;
+
+    public void agregarPropiedad(Propiedad p) {
+        if (this.propiedadesCompradas == null) this.propiedadesCompradas = new ArrayList<>();
+        this.propiedadesCompradas.add(p);
     }
- 
-    public int getPosicion() {
-        return this.posicion;
-    }
- 
-    public boolean isEnCarcel() {
-        return this.enCarcel;
-    }
- 
-    // Setters
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
- 
-    public void setSaldo(int saldo) {
-        this.saldo = saldo;
-    }
- 
-    public void setPosicion(int posicion) {
-        this.posicion = posicion;
-    }
- 
-    public void setEnCarcel(boolean enCarcel) {
-        this.enCarcel = enCarcel;
-    }
- 
-    // toString
+
     @Override
     public String toString() {
-        return "Jugador [nombre=" + nombre + ", saldo=" + saldo + ", posicion=" + posicion + ", enCarcel=" + enCarcel + "]";
+        return "Jugador{" +
+                "nombre='" + nombre + '\'' +
+                ", saldo=" + saldo +
+                ", posicionActual=" + posicionActual +
+                ", estaEnCarcel=" + estaEnCarcel +
+                ", turnosRestantesCarcel=" + turnosRestantesCarcel +
+                ", propiedadesCompradas=" + (propiedadesCompradas != null ? propiedadesCompradas.size() : 0) +
+                '}';
     }
 }
- 
