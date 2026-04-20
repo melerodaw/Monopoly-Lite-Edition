@@ -1,0 +1,28 @@
+# === NETBEANS & ANT ===
+# Ignora la configuración personal (donde Netbeans guarda tu ruta de JDK local)
+nbproject/private/
+# Ignora las carpetas de compilación
+build/
+nbbuild/
+dist/
+nbdist/
+# Archivos de configuración de ejecución local
+nbactions.xml
+nb-configuration.xml
+
+.vscode/
+.history/
+*.log
+
+# === JAVA (General) ===
+# Nunca subir archivos compilados
+*.class
+*.jar
+*.war
+*.ear
+# Archivos temporales de Java Language Server (usado por VS Code)
+.factorypath
+
+# === SISTEMA OPERATIVO ===
+.DS_Store
+Thumbs.db
