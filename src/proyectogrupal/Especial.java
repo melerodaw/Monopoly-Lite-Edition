@@ -1,3 +1,5 @@
+package proyectogrupal;
+
 public class Especial extends Casilla {
     private String tipoEspecial;
     private int montoEfecto;

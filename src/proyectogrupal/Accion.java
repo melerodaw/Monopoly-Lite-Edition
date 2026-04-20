@@ -1,3 +1,5 @@
+package proyectogrupal;
+
 public class Accion {
     private String descripcionCarta;
 

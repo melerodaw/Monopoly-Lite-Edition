@@ -1,3 +1,5 @@
+package proyectogrupal;
+
 public class Propiedad extends Casilla {
     private int precioCompra;
     private int alquilerBase;

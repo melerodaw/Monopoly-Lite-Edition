@@ -1,3 +1,5 @@
+package proyectogrupal;
+
 public class Banca {
     private boolean fondoInfinito;
 

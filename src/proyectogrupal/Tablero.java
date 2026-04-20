@@ -1,3 +1,5 @@
+package proyectogrupal;
+
 public class Tablero {
     private Casilla[] casillas; // [20] en el UML
 
