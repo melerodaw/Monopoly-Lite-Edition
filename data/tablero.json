@@ -12,7 +12,6 @@
         "id": 1,
         "nombre": "A1",
         "tipo": "PROPIEDAD",
-        "grupo": "ECONOMICO",
         "precioCompra": 60,
         "alquilerBase": 6
       },
@@ -25,7 +24,6 @@
         "id": 3,
         "nombre": "A2",
         "tipo": "PROPIEDAD",
-        "grupo": "ECONOMICO",
         "precioCompra": 60,
         "alquilerBase": 6
       },
@@ -33,7 +31,6 @@
         "id": 4,
         "nombre": "ESTACION 1",
         "tipo": "TRANSPORTE",
-        "grupo": "TRANSPORTE",
         "precioCompra": 200,
         "alquilerBase": 25
       },
@@ -46,7 +43,6 @@
         "id": 6,
         "nombre": "B1",
         "tipo": "PROPIEDAD",
-        "grupo": "MEDIO",
         "precioCompra": 100,
         "alquilerBase": 10
       },
@@ -59,7 +55,6 @@
         "id": 8,
         "nombre": "B2",
         "tipo": "PROPIEDAD",
-        "grupo": "MEDIO",
         "precioCompra": 100,
         "alquilerBase": 10
       },
@@ -67,7 +62,6 @@
         "id": 9,
         "nombre": "ESTACION 2",
         "tipo": "TRANSPORTE",
-        "grupo": "TRANSPORTE",
         "precioCompra": 200,
         "alquilerBase": 25
       },
@@ -75,7 +69,6 @@
         "id": 10,
         "nombre": "C1",
         "tipo": "PROPIEDAD",
-        "grupo": "ALTO",
         "precioCompra": 140,
         "alquilerBase": 14
       },
@@ -83,7 +76,6 @@
         "id": 11,
         "nombre": "C2",
         "tipo": "PROPIEDAD",
-        "grupo": "ALTO",
         "precioCompra": 140,
         "alquilerBase": 14
       },
@@ -96,7 +88,6 @@
         "id": 13,
         "nombre": "C3",
         "tipo": "PROPIEDAD",
-        "grupo": "ALTO",
         "precioCompra": 140,
         "alquilerBase": 14
       },
@@ -104,7 +95,6 @@
         "id": 14,
         "nombre": "ESTACION 3",
         "tipo": "TRANSPORTE",
-        "grupo": "TRANSPORTE",
         "precioCompra": 200,
         "alquilerBase": 25
       },
@@ -118,7 +108,6 @@
         "id": 16,
         "nombre": "D1",
         "tipo": "PROPIEDAD",
-        "grupo": "PREMIUM",
         "precioCompra": 180,
         "alquilerBase": 18
       },
@@ -126,7 +115,6 @@
         "id": 17,
         "nombre": "D2",
         "tipo": "PROPIEDAD",
-        "grupo": "PREMIUM",
         "precioCompra": 180,
         "alquilerBase": 18
       },
@@ -140,7 +128,6 @@
         "id": 19,
         "nombre": "D3",
         "tipo": "PROPIEDAD",
-        "grupo": "PREMIUM",
         "precioCompra": 180,
         "alquilerBase": 18
       }
