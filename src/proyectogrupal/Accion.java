@@ -1,6 +1,6 @@
 package proyectogrupal;
 
-public class Accion {
+public class Accion{
     private String descripcionCarta;
 
     public Accion() {}

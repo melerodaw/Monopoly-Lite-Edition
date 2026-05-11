@@ -1,0 +1,149 @@
+{
+  "tablero": {
+    "totalCasillas": 20,
+    "casillas": [
+      {
+        "id": 0,
+        "nombre": "SALIDA",
+        "tipo": "SALIDA",
+        "montoEfecto": 200
+      },
+      {
+        "id": 1,
+        "nombre": "A1",
+        "tipo": "PROPIEDAD",
+        "grupo": "ECONOMICO",
+        "precioCompra": 60,
+        "alquilerBase": 6
+      },
+      {
+        "id": 2,
+        "nombre": "SUERTE",
+        "tipo": "SUERTE"
+      },
+      {
+        "id": 3,
+        "nombre": "A2",
+        "tipo": "PROPIEDAD",
+        "grupo": "ECONOMICO",
+        "precioCompra": 60,
+        "alquilerBase": 6
+      },
+      {
+        "id": 4,
+        "nombre": "ESTACION 1",
+        "tipo": "TRANSPORTE",
+        "grupo": "TRANSPORTE",
+        "precioCompra": 200,
+        "alquilerBase": 25
+      },
+      {
+        "id": 5,
+        "nombre": "CARCEL",
+        "tipo": "CARCEL"
+      },
+      {
+        "id": 6,
+        "nombre": "B1",
+        "tipo": "PROPIEDAD",
+        "grupo": "MEDIO",
+        "precioCompra": 100,
+        "alquilerBase": 10
+      },
+      {
+        "id": 7,
+        "nombre": "SUERTE",
+        "tipo": "SUERTE"
+      },
+      {
+        "id": 8,
+        "nombre": "B2",
+        "tipo": "PROPIEDAD",
+        "grupo": "MEDIO",
+        "precioCompra": 100,
+        "alquilerBase": 10
+      },
+      {
+        "id": 9,
+        "nombre": "ESTACION 2",
+        "tipo": "TRANSPORTE",
+        "grupo": "TRANSPORTE",
+        "precioCompra": 200,
+        "alquilerBase": 25
+      },
+      {
+        "id": 10,
+        "nombre": "C1",
+        "tipo": "PROPIEDAD",
+        "grupo": "ALTO",
+        "precioCompra": 140,
+        "alquilerBase": 14
+      },
+      {
+        "id": 11,
+        "nombre": "C2",
+        "tipo": "PROPIEDAD",
+        "grupo": "ALTO",
+        "precioCompra": 140,
+        "alquilerBase": 14
+      },
+      {
+        "id": 12,
+        "nombre": "SUERTE",
+        "tipo": "SUERTE"
+      },
+      {
+        "id": 13,
+        "nombre": "C3",
+        "tipo": "PROPIEDAD",
+        "grupo": "ALTO",
+        "precioCompra": 140,
+        "alquilerBase": 14
+      },
+      {
+        "id": 14,
+        "nombre": "ESTACION 3",
+        "tipo": "TRANSPORTE",
+        "grupo": "TRANSPORTE",
+        "precioCompra": 200,
+        "alquilerBase": 25
+      },
+      {
+        "id": 15,
+        "nombre": "IR A LA CARCEL",
+        "tipo": "IR_A_LA_CARCEL",
+        "destino": 5
+      },
+      {
+        "id": 16,
+        "nombre": "D1",
+        "tipo": "PROPIEDAD",
+        "grupo": "PREMIUM",
+        "precioCompra": 180,
+        "alquilerBase": 18
+      },
+      {
+        "id": 17,
+        "nombre": "D2",
+        "tipo": "PROPIEDAD",
+        "grupo": "PREMIUM",
+        "precioCompra": 180,
+        "alquilerBase": 18
+      },
+      {
+        "id": 18,
+        "nombre": "IMPUESTO",
+        "tipo": "IMPUESTO",
+        "montoEfecto": 100
+      },
+      {
+        "id": 19,
+        "nombre": "D3",
+        "tipo": "PROPIEDAD",
+        "grupo": "PREMIUM",
+        "precioCompra": 180,
+        "alquilerBase": 18
+      }
+    ]
+  }
+}
