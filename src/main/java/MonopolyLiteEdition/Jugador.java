@@ -1,4 +1,4 @@
-package proyectogrupal;
+package MonopolyLiteEdition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,14 +9,14 @@ public class Jugador {
     private int posicionActual;
     private boolean estaEnCarcel;
     private int turnosRestantesCarcel;
-    private List<Propiedad> propiedadesCompradas;
+    private List<Casilla> propiedadesCompradas;
 
     public Jugador() {
         this.propiedadesCompradas = new ArrayList<>();
     }
 
     public Jugador(String nombre, int saldo, int posicionActual, boolean estaEnCarcel,
-                   int turnosRestantesCarcel, List<Propiedad> propiedadesCompradas) {
+                   int turnosRestantesCarcel, List<Casilla> propiedadesCompradas) {
         this.nombre = nombre;
         this.saldo = saldo;
         this.posicionActual = posicionActual;
@@ -31,7 +31,7 @@ public class Jugador {
         this.posicionActual = j.posicionActual;
         this.estaEnCarcel = j.estaEnCarcel;
         this.turnosRestantesCarcel = j.turnosRestantesCarcel;
-        this.propiedadesCompradas = new ArrayList<>(j.propiedadesCompradas);
+        this.propiedadesCompradas = (j.propiedadesCompradas != null) ? new ArrayList<>(j.propiedadesCompradas) : new ArrayList<>();
     }
 
     public String getNombre() { return nombre; }
@@ -39,18 +39,18 @@ public class Jugador {
     public int getPosicionActual() { return posicionActual; }
     public boolean getEstaEnCarcel() { return estaEnCarcel; }
     public int getTurnosRestantesCarcel() { return turnosRestantesCarcel; }
-    public List<Propiedad> getPropiedadesCompradas() { return propiedadesCompradas; }
+    public List<Casilla> getPropiedadesCompradas() { return propiedadesCompradas; }
 
     public void setNombre(String nombre) { this.nombre = nombre; }
     public void setSaldo(int saldo) { this.saldo = saldo; }
     public void setPosicionActual(int posicionActual) { this.posicionActual = posicionActual; }
     public void setEstaEnCarcel(boolean estaEnCarcel) { this.estaEnCarcel = estaEnCarcel; }
     public void setTurnosRestantesCarcel(int turnosRestantesCarcel) { this.turnosRestantesCarcel = turnosRestantesCarcel; }
-    public void setPropiedadesCompradas(List<Propiedad> propiedadesCompradas) {
+    public void setPropiedadesCompradas(List<Casilla> propiedadesCompradas) {
         this.propiedadesCompradas = (propiedadesCompradas != null) ? propiedadesCompradas : new ArrayList<>();
     }
 
-    public void agregarPropiedad(Propiedad p) {
+    public void agregarPropiedad(Casilla p) {
         if (this.propiedadesCompradas == null) this.propiedadesCompradas = new ArrayList<>();
         this.propiedadesCompradas.add(p);
     }

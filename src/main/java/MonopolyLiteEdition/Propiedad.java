@@ -1,4 +1,4 @@
-package proyectogrupal;
+package MonopolyLiteEdition;
 
 public class Propiedad extends Casilla {
     private int precioCompra;
@@ -44,9 +44,10 @@ public class Propiedad extends Casilla {
 
     @Override
     public void ejecutarAccion(Jugador j) {
-        // Lógica mínima típica:
-        // - Si no tiene propietario: el jugador puede comprar si tiene saldo suficiente.
-        // - Si tiene propietario y no es el mismo: paga alquiler.
+        if (j == null) {
+            return;
+        }
+
         if (propietario == null) {
             if (j.getSaldo() >= precioCompra) {
                 j.setSaldo(j.getSaldo() - precioCompra);
@@ -56,7 +57,7 @@ public class Propiedad extends Casilla {
         } else if (propietario != j) {
             int alquiler = alquilerBase;
             if (esDeGrupoCompleto) {
-                alquiler *= 2; // ejemplo simple
+                alquiler *= 2;
             }
             j.setSaldo(j.getSaldo() - alquiler);
             propietario.setSaldo(propietario.getSaldo() + alquiler);

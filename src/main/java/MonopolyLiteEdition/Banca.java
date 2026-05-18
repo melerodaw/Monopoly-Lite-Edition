@@ -1,4 +1,4 @@
-package proyectogrupal;
+package MonopolyLiteEdition;
 
 public class Banca {
     private boolean fondoInfinito;
