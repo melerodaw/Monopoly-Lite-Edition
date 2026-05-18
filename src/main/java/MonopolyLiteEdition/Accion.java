@@ -1,4 +1,4 @@
-package proyectogrupal;
+package MonopolyLiteEdition;
 
 public class Accion{
     private int id;

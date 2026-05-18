@@ -1,4 +1,4 @@
-package proyectogrupal;
+package MonopolyLiteEdition;
 
 public class Carta {
  
@@ -77,3 +77,4 @@ public class Carta {
         return "Carta [id=" + id + ", descripcion=" + descripcion + ", tipo=" + tipo + ", importe=" + importe + "]";
     }
 }
+

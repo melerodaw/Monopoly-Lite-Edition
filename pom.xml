@@ -52,7 +52,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>proyectogrupal.ProyectoGrupal</mainClass>
+                            <mainClass>MonopolyLiteEdition.ProyectoGrupal</mainClass>
                         </manifest>
                     </archive>
                     <outputDirectory>${project.basedir}/dist</outputDirectory>

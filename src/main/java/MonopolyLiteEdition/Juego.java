@@ -1,4 +1,4 @@
-package proyectogrupal;
+package MonopolyLiteEdition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +54,7 @@ public class Juego {
     }
 
     public Jugador verificarGanador() {
-        // Ejemplo simple: ganador = último con saldo > 0
+        // Ejemplo simple: ganador = Ãºltimo con saldo > 0
         if (listaJugadores == null || listaJugadores.isEmpty()) return null;
 
         Jugador candidato = null;

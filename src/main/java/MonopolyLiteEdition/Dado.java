@@ -1,4 +1,4 @@
-package proyectogrupal;
+package MonopolyLiteEdition;
 
 import java.util.Random;
 
@@ -14,7 +14,7 @@ public class Dado {
     }
 
     public int generarAleatorio() {
-        // Dado clásico 1..6
+        // Dado clÃ¡sico 1..6
         return random.nextInt(6) + 1;
     }
 
