@@ -1,0 +1,10 @@
+{
+  "reglas": {
+    "dineroInicial": 1500,
+    "premioSalida": 200,
+    "multaImpuesto": 100,
+    "turnosCarcel": 2,
+    "tamanoTablero": 20,
+    "minimoCartasSuerte": 10
+  }
+}

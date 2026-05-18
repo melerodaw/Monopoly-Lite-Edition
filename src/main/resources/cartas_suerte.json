@@ -1,0 +1,64 @@
+{
+  "cartasSuerte": [
+    {
+      "id": 1,
+      "descripcion": "Recibes un premio por vender un activo menor.",
+      "tipo": "BONO",
+      "importe": 50
+    },
+    {
+      "id": 2,
+      "descripcion": "Pagas una multa por obras en tu propiedad.",
+      "tipo": "MULTA",
+      "importe": 25
+    },
+    {
+      "id": 3,
+      "descripcion": "Avanzas hasta la casilla de salida y cobras el premio.",
+      "tipo": "AVANZA",
+      "importe": 200
+    },
+    {
+      "id": 4,
+      "descripcion": "Retrocedes 3 casillas.",
+      "tipo": "RETROCEDE",
+      "importe": 0
+    },
+    {
+      "id": 5,
+      "descripcion": "Tu visita al banco termina con un ingreso inesperado.",
+      "tipo": "BONO",
+      "importe": 100
+    },
+    {
+      "id": 6,
+      "descripcion": "Has sido atrapado por la policia y vas a carcel.",
+      "tipo": "CARCEL",
+      "importe": 0
+    },
+    {
+      "id": 7,
+      "descripcion": "Cobras por alquiler de una de tus propiedades.",
+      "tipo": "BONO",
+      "importe": 75
+    },
+    {
+      "id": 8,
+      "descripcion": "Pagas mantenimiento de edificios.",
+      "tipo": "MULTA",
+      "importe": 40
+    },
+    {
+      "id": 9,
+      "descripcion": "Sales de carcel sin pagar nada.",
+      "tipo": "OTRO",
+      "importe": 0
+    },
+    {
+      "id": 10,
+      "descripcion": "Recibes una bonificacion por buena gestion financiera.",
+      "tipo": "BONO",
+      "importe": 150
+    }
+  ]
+}
