@@ -26,3 +26,9 @@ nb-configuration.xml
 # === SISTEMA OPERATIVO ===
 .DS_Store
 Thumbs.db
+
+# IntelliJ
+.idea/
+*.iml
+target/
+dist/
