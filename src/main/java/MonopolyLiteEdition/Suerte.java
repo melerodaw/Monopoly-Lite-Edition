@@ -21,6 +21,5 @@ public class Suerte extends Casilla {
 
     @Override
     public String toString() {
-        return "Suerte " + super.toString();
     }
 }
