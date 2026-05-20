@@ -3,7 +3,6 @@ package MonopolyLiteEdition;
 public class Propiedad extends Casilla {
     private int precioCompra;
     private int alquilerBase;
-    private String grupo;
     private Jugador propietario;
     private boolean esDeGrupoCompleto;
 
@@ -11,12 +10,11 @@ public class Propiedad extends Casilla {
         super();
     }
 
-    public Propiedad(int id, String nombre, int precioCompra, int alquilerBase, String grupo,
+    public Propiedad(int id, String nombre, int precioCompra, int alquilerBase,
                      Jugador propietario, boolean esDeGrupoCompleto) {
         super(id, nombre);
         this.precioCompra = precioCompra;
         this.alquilerBase = alquilerBase;
-        this.grupo = grupo;
         this.propietario = propietario;
         this.esDeGrupoCompleto = esDeGrupoCompleto;
     }
@@ -25,20 +23,17 @@ public class Propiedad extends Casilla {
         super(p.getId(), p.getNombre());
         this.precioCompra = p.precioCompra;
         this.alquilerBase = p.alquilerBase;
-        this.grupo = p.grupo;
         this.propietario = p.propietario;
         this.esDeGrupoCompleto = p.esDeGrupoCompleto;
     }
 
     public int getPrecioCompra() { return precioCompra; }
     public int getAlquilerBase() { return alquilerBase; }
-    public String getGrupo() { return grupo; }
     public Jugador getPropietario() { return propietario; }
     public boolean isEsDeGrupoCompleto() { return esDeGrupoCompleto; }
 
     public void setPrecioCompra(int precioCompra) { this.precioCompra = precioCompra; }
     public void setAlquilerBase(int alquilerBase) { this.alquilerBase = alquilerBase; }
-    public void setGrupo(String grupo) { this.grupo = grupo; }
     public void setPropietario(Jugador propietario) { this.propietario = propietario; }
     public void setEsDeGrupoCompleto(boolean esDeGrupoCompleto) { this.esDeGrupoCompleto = esDeGrupoCompleto; }
 
@@ -71,7 +66,7 @@ public class Propiedad extends Casilla {
                 ", nombre='" + getNombre() + '\'' +
                 ", precioCompra=" + precioCompra +
                 ", alquilerBase=" + alquilerBase +
-                ", grupo='" + grupo + '\'' +
+                ", grupo='" + getNombre().charAt(0) + '\'' +
                 ", propietario=" + (propietario != null ? propietario.getNombre() : "null") +
                 ", esDeGrupoCompleto=" + esDeGrupoCompleto +
                 '}';

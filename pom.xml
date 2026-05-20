@@ -20,7 +20,7 @@
     </properties>
 
     <dependencies>
-        <!-- Gson para leer los JSON (tablero.json, cartas_suerte.json, reglas.json) -->
+        <!-- Gson para leer los JSON (tablero.old.json, cartas_suerte.json, reglas.json) -->
         <!-- Descomenta cuando vayas a implementar la carga de JSON -->
 
         <dependency>

@@ -18,8 +18,8 @@ public class ProyectoGrupal {
 
         Gson gson = new Gson();
 
-        try (FileReader fr = new FileReader("src/main/resources/tablero.json")) {
-            System.out.println("Leyendo 'src/main/resources/tablero.json'...");
+        try (FileReader fr = new FileReader("src/main/resources/tablero.old.json")) {
+            System.out.println("Leyendo 'src/main/resources/tablero.old.json'...");
 
             // Parseamos el JSON a TableroRaw
             TableroRaw raw = gson.fromJson(fr, TableroRaw.class);
@@ -44,7 +44,6 @@ public class ProyectoGrupal {
                         casillas[i] = new Propiedad(r.id != null ? r.id : 0, r.nombre,
                                 r.precioCompra != null ? r.precioCompra : 0,
                                 r.alquilerBase != null ? r.alquilerBase : 0,
-                                r.grupo,
                                 null,
                                 false);
                         break;
@@ -107,7 +106,6 @@ public class ProyectoGrupal {
         public Integer montoEfecto;
         public Integer precioCompra;
         public Integer alquilerBase;
-        public String grupo;
         public Integer destino;
     }
 

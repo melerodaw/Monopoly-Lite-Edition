@@ -53,7 +53,7 @@ public abstract class Casilla {
             case "SALIDA":
                 return new Salida(id, nombre, leerEntero(obj, "montoEfecto", 0));
             case "PROPIEDAD":
-                return new Propiedad(id, nombre, leerEntero(obj, "precioCompra", 0), leerEntero(obj, "alquilerBase", 0), leerCadena(obj, "grupo", null), null, false);
+                return new Propiedad(id, nombre, leerEntero(obj, "precioCompra", 0), leerEntero(obj, "alquilerBase", 0), null, false);
             case "TRANSPORTE":
                 return new Transporte(id, nombre, leerEntero(obj, "precioCompra", 0), leerEntero(obj, "alquilerBase", 0), null);
             case "SUERTE":
