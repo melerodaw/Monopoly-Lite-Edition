@@ -79,6 +79,6 @@ public abstract class Casilla {
 
     @Override
     public String toString() {
-        return "Casilla [id=" + id + ", nombre=" + nombre + "]";
+        return "[id=" + id + ", nombre=" + nombre + "]";
     }
 }

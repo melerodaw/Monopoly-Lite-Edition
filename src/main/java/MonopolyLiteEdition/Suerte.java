@@ -21,10 +21,6 @@ public class Suerte extends Casilla {
 
     @Override
     public String toString() {
-        return "Suerte{" +
-                "id=" + getId() +
-                ", nombre='" + getNombre() + '\'' +
-                '}';
+        return "Suerte " + super.toString();
     }
 }
-

@@ -6,74 +6,79 @@ import com.google.gson.JsonSyntaxException;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.List;
 
 public class ProyectoGrupal {
 
     public static void main(String[] args) {
-        // Ejemplo simple, estilo estudiante de primer curso:
-        // - No usamos JsonObject ni deserializadores personalizados.
-        // - Gson mapea el JSON a clases "raw" sencillas (TableroRaw/CasillaRaw).
-        // - Después convertimos manualmente cada CasillaRaw a su subclase concreta.
-
         Gson gson = new Gson();
 
-        try (FileReader fr = new FileReader("src/main/resources/tablero.old.json")) {
-            System.out.println("Leyendo 'src/main/resources/tablero.old.json'...");
+        try (FileReader fr = new FileReader("src/main/resources/tablero.json")) {
+            System.out.println("Leyendo 'src/main/resources/tablero.json'...");
 
-            // Parseamos el JSON a TableroRaw
-            TableroRaw raw = gson.fromJson(fr, TableroRaw.class);
-            if (raw == null || raw.tablero == null || raw.tablero.casillas == null) {
+            TableroIntermedio tableroIntermedio = gson.fromJson(fr, TableroIntermedio.class);
+            if (tableroIntermedio == null) {
                 System.out.println("No se pudo leer el JSON del tablero o está vacío.");
                 return;
             }
 
-            List<CasillaRaw> lista = raw.tablero.casillas;
-            System.out.println("Casillas encontradas: " + lista.size());
+            Casilla[] casillas = new Casilla[20];
 
-            // Convertir cada registro a la subclase correspondiente
-            Casilla[] casillas = new Casilla[lista.size()];
-            for (int i = 0; i < lista.size(); i++) {
-                CasillaRaw r = lista.get(i);
-                String tipo = (r.tipo != null) ? r.tipo.toUpperCase() : "";
-                switch (tipo) {
-                    case "SALIDA":
-                        casillas[i] = new Salida(r.id != null ? r.id : 0, r.nombre, r.montoEfecto != null ? r.montoEfecto : 0);
-                        break;
-                    case "PROPIEDAD":
-                        casillas[i] = new Propiedad(r.id != null ? r.id : 0, r.nombre,
-                                r.precioCompra != null ? r.precioCompra : 0,
-                                r.alquilerBase != null ? r.alquilerBase : 0,
-                                null,
-                                false);
-                        break;
-                    case "TRANSPORTE":
-                        casillas[i] = new Transporte(r.id != null ? r.id : 0, r.nombre,
-                                r.precioCompra != null ? r.precioCompra : 0,
-                                r.alquilerBase != null ? r.alquilerBase : 0,
-                                null);
-                        break;
-                    case "SUERTE":
-                        casillas[i] = new Suerte(r.id != null ? r.id : 0, r.nombre);
-                        break;
-                    case "CARCEL":
-                        casillas[i] = new Carcel(r.id != null ? r.id : 0, r.nombre);
-                        break;
-                    case "IR_A_LA_CARCEL":
-                        casillas[i] = new IrACarcel(r.id != null ? r.id : 0, r.nombre, r.destino != null ? r.destino : 5);
-                        break;
-                    case "IMPUESTO":
-                        casillas[i] = new Impuesto(r.id != null ? r.id : 0, r.nombre, r.montoEfecto != null ? r.montoEfecto : 0);
-                        break;
-                    default:
-                        // Si no reconocemos el tipo, crear una casilla SALIDA por defecto
-                        casillas[i] = new Salida(r.id != null ? r.id : 0, r.nombre, 0);
-                        System.out.println("Advertencia: tipo desconocido '" + r.tipo + "' en posición " + i + ". Se creó una Salida por defecto.");
-                        break;
+            if (tableroIntermedio.getSalida() != null) {
+                for (Salida salida : tableroIntermedio.getSalida()) {
+                    if (salida != null && salida.getId() >= 0 && salida.getId() < casillas.length) {
+                        casillas[salida.getId()] = salida;
+                    }
                 }
             }
 
-            // Construimos el tablero y lo imprimimos
+            if (tableroIntermedio.getPropiedad() != null) {
+                for (Propiedad propiedad : tableroIntermedio.getPropiedad()) {
+                    if (propiedad != null && propiedad.getId() >= 0 && propiedad.getId() < casillas.length) {
+                        casillas[propiedad.getId()] = propiedad;
+                    }
+                }
+            }
+
+            if (tableroIntermedio.getSuerte() != null) {
+                for (Suerte suerte : tableroIntermedio.getSuerte()) {
+                    if (suerte != null && suerte.getId() >= 0 && suerte.getId() < casillas.length) {
+                        casillas[suerte.getId()] = suerte;
+                    }
+                }
+            }
+
+            if (tableroIntermedio.getTransporte() != null) {
+                for (Transporte transporte : tableroIntermedio.getTransporte()) {
+                    if (transporte != null && transporte.getId() >= 0 && transporte.getId() < casillas.length) {
+                        casillas[transporte.getId()] = transporte;
+                    }
+                }
+            }
+
+            if (tableroIntermedio.getCarcel() != null) {
+                for (Carcel carcel : tableroIntermedio.getCarcel()) {
+                    if (carcel != null && carcel.getId() >= 0 && carcel.getId() < casillas.length) {
+                        casillas[carcel.getId()] = carcel;
+                    }
+                }
+            }
+
+            if (tableroIntermedio.getIrACarcel() != null) {
+                for (IrACarcel irACarcel : tableroIntermedio.getIrACarcel()) {
+                    if (irACarcel != null && irACarcel.getId() >= 0 && irACarcel.getId() < casillas.length) {
+                        casillas[irACarcel.getId()] = irACarcel;
+                    }
+                }
+            }
+
+            if (tableroIntermedio.getImpuesto() != null) {
+                for (Impuesto impuesto : tableroIntermedio.getImpuesto()) {
+                    if (impuesto != null && impuesto.getId() >= 0 && impuesto.getId() < casillas.length) {
+                        casillas[impuesto.getId()] = impuesto;
+                    }
+                }
+            }
+
             Tablero tablero = new Tablero(casillas);
             System.out.println("\nTablero cargado. Listado de casillas:");
             for (Casilla c : tablero.getCasillas()) {
@@ -87,26 +92,8 @@ public class ProyectoGrupal {
         } catch (IOException e) {
             System.out.println("Error de lectura: " + e.getMessage());
         }
-    }
 
-    // POJOs simples para mapear el JSON sin usar JsonObject
-    public static class TableroRaw {
-        public TableroInner tablero;
-    }
 
-    public static class TableroInner {
-        public Integer totalCasillas;
-        public List<CasillaRaw> casillas;
-    }
 
-    public static class CasillaRaw {
-        public Integer id;
-        public String nombre;
-        public String tipo;
-        public Integer montoEfecto;
-        public Integer precioCompra;
-        public Integer alquilerBase;
-        public Integer destino;
     }
-
 }
