@@ -67,7 +67,11 @@ public class Juego {
         }
         return (vivos == 1) ? candidato : null;
     }
-
+    public void agregarJugador(Jugador jugador) {
+        if (jugador != null && listaJugadores != null) {
+            listaJugadores.add(jugador);
+        }
+    }
     @Override
     public String toString() {
         return "Juego{" +

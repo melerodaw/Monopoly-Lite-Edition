@@ -78,5 +78,9 @@ public abstract class Casilla {
 
     @Override
     public String toString() {
+        return this.getClass().getSimpleName() + "{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                '}';
     }
 }

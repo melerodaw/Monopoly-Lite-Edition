@@ -21,5 +21,9 @@ public class Carcel extends Casilla {
 
     @Override
     public String toString() {
+        return "Carcel{" +
+                "id=" + getId() +
+                ", nombre='" + getNombre() + '\'' +
+                '}';
     }
 }
