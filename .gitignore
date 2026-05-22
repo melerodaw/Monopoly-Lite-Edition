@@ -1,28 +1,51 @@
-# === NETBEANS & ANT ===
-# Ignora la configuración personal (donde Netbeans guarda tu ruta de JDK local)
-nbproject/private/
-# Ignora las carpetas de compilación
-build/
-nbbuild/
-dist/
-nbdist/
-# Archivos de configuración de ejecución local
-nbactions.xml
-nb-configuration.xml
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+.kotlin
 
-.vscode/
-.history/
-*.log
+### IntelliJ IDEA ###
+.idea/modules.xml
+.idea/jarRepositories.xml
+.idea/compiler.xml
+.idea/libraries/
+*.iws
+*.iml
+*.ipr
 
-# === JAVA (General) ===
-# Nunca subir archivos compilados
-*.class
-*.jar
-*.war
-*.ear
-# Archivos temporales de Java Language Server (usado por VS Code)
+### Eclipse ###
+.apt_generated
+.classpath
 .factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
 
+<<<<<<< HEAD
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store
+=======
 # === SISTEMA OPERATIVO ===
 .DS_Store
 Thumbs.db
+
+# IntelliJ
+.idea/
+*.iml
+target/
+dist/
+>>>>>>> 39bbb362e2c73f50e5158e325469bd2be759819b
