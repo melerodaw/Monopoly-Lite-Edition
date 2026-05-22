@@ -52,7 +52,22 @@ public class Jugador {
 
     public void agregarPropiedad(Casilla p) {
         if (this.propiedadesCompradas == null) this.propiedadesCompradas = new ArrayList<>();
-        this.propiedadesCompradas.add(p);
+        if (p != null && !this.propiedadesCompradas.contains(p)) {
+            this.propiedadesCompradas.add(p);
+        }
+    }
+
+    public void quitarPropiedad(Casilla p) {
+        if (this.propiedadesCompradas == null || p == null) {
+            return;
+        }
+        this.propiedadesCompradas.remove(p);
+    }
+
+    public void limpiarPropiedades() {
+        if (this.propiedadesCompradas != null) {
+            this.propiedadesCompradas.clear();
+        }
     }
 
     @Override

@@ -38,7 +38,7 @@ public class TableroManager {
                 String nombre = propJson.has("nombre") ? propJson.get("nombre").getAsString() : "Propiedad";
                 int precio = propJson.has("precioCompra") ? propJson.get("precioCompra").getAsInt() : 0;
                 int alquiler = propJson.has("alquilerBase") ? propJson.get("alquilerBase").getAsInt() : 0;
-                casillas[id] = new Transporte(id, nombre, precio, alquiler, null);
+                casillas[id] = new Propiedad(id, nombre, precio, alquiler, null);
             }
         }
 

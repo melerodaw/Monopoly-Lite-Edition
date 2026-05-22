@@ -3,7 +3,7 @@
   {
     "id": 0,
     "nombre": "SALIDA",
-    "montoEfecto": 200
+    "montoEfecto": 100
   }
 ],
 "propiedad": [
@@ -16,8 +16,8 @@
   {
     "id": 3,
     "nombre": "A2",
-    "precioCompra": 60,
-    "alquilerBase": 6
+    "precioCompra": 80,
+    "alquilerBase": 8
   },
   {
     "id": 6,
@@ -28,8 +28,8 @@
   {
     "id": 8,
     "nombre": "B2",
-    "precioCompra": 100,
-    "alquilerBase": 10
+    "precioCompra": 120,
+    "alquilerBase": 12
   },
   {
     "id": 10,
@@ -40,32 +40,32 @@
   {
     "id": 11,
     "nombre": "C2",
-    "precioCompra": 140,
-    "alquilerBase": 14
+    "precioCompra": 160,
+    "alquilerBase": 16
   },
   {
     "id": 13,
     "nombre": "C3",
-    "precioCompra": 140,
-    "alquilerBase": 14
+    "precioCompra": 180,
+    "alquilerBase": 18
   },
   {
     "id": 16,
     "nombre": "D1",
-    "precioCompra": 180,
-    "alquilerBase": 18
+    "precioCompra": 200,
+    "alquilerBase": 20
   },
   {
     "id": 17,
     "nombre": "D2",
-    "precioCompra": 180,
-    "alquilerBase": 18
+    "precioCompra": 220,
+    "alquilerBase": 22
   },
   {
     "id": 19,
     "nombre": "D3",
-    "precioCompra": 180,
-    "alquilerBase": 18
+    "precioCompra": 240,
+    "alquilerBase": 24
   }
 ],
 "suerte": [

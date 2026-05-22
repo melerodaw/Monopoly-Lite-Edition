@@ -126,7 +126,7 @@ public class ProyectoGrupal {
 
     private static void bucleJuego() {
         int turnoCount = 0;
-        int maxTurnos = 100; // Límite de turnos para evitar loop infinito
+        int maxTurnos = 1000; // Límite de turnos para evitar loop infinito
 
         while (turnoCount < maxTurnos) {
             Jugador jugadorActual = juego.getJugadorActual();
@@ -147,6 +147,7 @@ public class ProyectoGrupal {
             System.out.println("└────────────────────────────────────┘");
 
             // Manejo de cárcel
+            boolean jugadorEliminado = false;
             if (jugadorActual.getEstaEnCarcel()) {
                 manejarCarcel(jugadorActual);
             } else {
@@ -162,13 +163,26 @@ public class ProyectoGrupal {
                 Casilla casilla = tablero.obtenerCasillas(nuevaPosicion);
                 if (casilla != null) {
                     System.out.println("Llegó a: " + casilla.getNombre());
-                    casilla.ejecutarAccion(jugadorActual);
+
+                    if (casilla instanceof Propiedad) {
+                        jugadorEliminado = resolverPropiedad(jugadorActual, (Propiedad) casilla);
+                    } else if (casilla instanceof Transporte) {
+                        jugadorEliminado = resolverTransporte(jugadorActual, (Transporte) casilla);
+                    } else {
+                        casilla.ejecutarAccion(jugadorActual);
+                    }
                 }
 
                 // Verificar si saldo negativo = eliminado
-                if (jugadorActual.getSaldo() < 0) {
-                    System.out.println(jugadorActual.getNombre() + " está en quiebra.");
+                if (!jugadorEliminado && jugadorActual.getSaldo() < 0) {
+                    System.out.println("  ✗ " + jugadorActual.getNombre() + " quedó con saldo negativo. ¡BANCARROTA! Eliminado del juego.");
+                    declararBancarrota(jugadorActual);
+                    jugadorEliminado = true;
                 }
+            }
+
+            if (!jugadorEliminado) {
+                ofrecerConstruccion(jugadorActual);
             }
 
             // Pausa entre turnos
@@ -176,7 +190,11 @@ public class ProyectoGrupal {
             scanner.nextLine();
 
             // Siguiente turno
-            juego.siguienteTurno();
+            if (!jugadorEliminado) {
+                juego.siguienteTurno();
+            } else if (juego.getTurnoActual() >= juego.getListaJugadores().size()) {
+                juego.setTurnoActual(0);
+            }
             turnoCount++;
         }
 
@@ -194,12 +212,198 @@ public class ProyectoGrupal {
     }
 
     private static int jugadoresActivos() {
-        int activos = 0;
-        for (Jugador j : juego.getListaJugadores()) {
-            if (j.getSaldo() >= 0) {
-                activos++;
+        return juego.getListaJugadores().size();
+    }
+
+    private static boolean resolverPropiedad(Jugador jugadorActual, Propiedad propiedad) {
+        Jugador propietario = propiedad.getPropietario();
+
+        if (propietario == null) {
+            System.out.println("  ┌─ PROPIEDAD DISPONIBLE ──────────────┐");
+            System.out.println("  │ " + propiedad.getNombre() + " — Precio: $" + propiedad.getPrecioCompra());
+            System.out.println("  │ Tu saldo: $" + jugadorActual.getSaldo());
+            System.out.println("  └────────────────────────────────────┘");
+            System.out.print("  ¿Deseas comprar? (S/N): ");
+
+            if (leerSiNo()) {
+                if (jugadorActual.getSaldo() >= propiedad.getPrecioCompra()) {
+                    jugadorActual.setSaldo(jugadorActual.getSaldo() - propiedad.getPrecioCompra());
+                    propiedad.setPropietario(jugadorActual);
+                    jugadorActual.agregarPropiedad(propiedad);
+                    System.out.println("  ✓ Compraste " + propiedad.getNombre() + " por $" + propiedad.getPrecioCompra() + ".");
+                } else {
+                    System.out.println("  ✗ No tienes saldo suficiente para comprar " + propiedad.getNombre() + ".");
+                }
+            } else {
+                System.out.println("  ✗ Pasaste la oportunidad.");
+            }
+            return false;
+        }
+
+        if (propietario == jugadorActual) {
+            return false;
+        }
+
+        int renta = propiedad.getRentaActual();
+        System.out.println("  ➜ " + propiedad.getNombre() + " pertenece al " + propietario.getNombre());
+        if (jugadorActual.getSaldo() < renta) {
+            System.out.println("    ✗ " + jugadorActual.getNombre() + " no puede pagar. ¡BANCARROTA! Eliminado del juego.");
+            declararBancarrota(jugadorActual);
+            return true;
+        }
+
+        jugadorActual.setSaldo(jugadorActual.getSaldo() - renta);
+        propietario.setSaldo(propietario.getSaldo() + renta);
+        System.out.println("    ✗ " + jugadorActual.getNombre() + " paga $" + renta + " de alquiler a " + propietario.getNombre());
+        return false;
+    }
+
+    private static boolean resolverTransporte(Jugador jugadorActual, Transporte transporte) {
+        Jugador propietario = transporte.getPropietario();
+
+        if (propietario == null) {
+            System.out.println("  ┌─ PROPIEDAD DISPONIBLE ──────────────┐");
+            System.out.println("  │ " + transporte.getNombre() + " — Precio: $" + transporte.getPrecioCompra());
+            System.out.println("  │ Tu saldo: $" + jugadorActual.getSaldo());
+            System.out.println("  └────────────────────────────────────┘");
+            System.out.print("  ¿Deseas comprar? (S/N): ");
+
+            if (leerSiNo()) {
+                if (jugadorActual.getSaldo() >= transporte.getPrecioCompra()) {
+                    jugadorActual.setSaldo(jugadorActual.getSaldo() - transporte.getPrecioCompra());
+                    transporte.setPropietario(jugadorActual);
+                    jugadorActual.agregarPropiedad(transporte);
+                    System.out.println("  ✓ Compraste " + transporte.getNombre() + " por $" + transporte.getPrecioCompra() + ".");
+                } else {
+                    System.out.println("  ✗ No tienes saldo suficiente para comprar " + transporte.getNombre() + ".");
+                }
+            } else {
+                System.out.println("  ✗ Pasaste la oportunidad.");
+            }
+            return false;
+        }
+
+        if (propietario == jugadorActual) {
+            return false;
+        }
+
+        int renta = transporte.getAlquilerBase();
+        System.out.println("  ➜ " + transporte.getNombre() + " pertenece al " + propietario.getNombre());
+        if (jugadorActual.getSaldo() < renta) {
+            System.out.println("    ✗ " + jugadorActual.getNombre() + " no puede pagar. ¡BANCARROTA! Eliminado del juego.");
+            declararBancarrota(jugadorActual);
+            return true;
+        }
+
+        jugadorActual.setSaldo(jugadorActual.getSaldo() - renta);
+        propietario.setSaldo(propietario.getSaldo() + renta);
+        System.out.println("    ✗ " + jugadorActual.getNombre() + " paga $" + renta + " de alquiler a " + propietario.getNombre());
+        return false;
+    }
+
+    private static boolean leerSiNo() {
+        String entrada = scanner.nextLine().trim().toUpperCase();
+        return "S".equals(entrada) || "SI".equals(entrada);
+    }
+
+    private static void ofrecerConstruccion(Jugador jugadorActual) {
+        List<Propiedad> construibles = new ArrayList<>();
+        for (Casilla casilla : jugadorActual.getPropiedadesCompradas()) {
+            if (casilla instanceof Propiedad) {
+                Propiedad p = (Propiedad) casilla;
+                if (p.puedeConstruir() && poseeGrupoCompleto(jugadorActual, p.getGrupoColor())) {
+                    construibles.add(p);
+                }
             }
         }
-        return activos;
+
+        if (construibles.isEmpty()) {
+            return;
+        }
+
+        System.out.print("  ¿Deseas construir casas? (S/N): ");
+        if (!leerSiNo()) {
+            return;
+        }
+
+        System.out.println("  ┌─ TUS PROPIEDADES ───────────────────┐");
+        for (int i = 0; i < construibles.size(); i++) {
+            Propiedad p = construibles.get(i);
+            System.out.println("  │ " + (i + 1) + ") " + p.getNombre() + " | Casas: " + p.getEstadoConstruccion() + " | Coste casa: $" + p.getPrecioCasa());
+        }
+        System.out.println("  └────────────────────────────────────┘");
+        System.out.print("  Elige propiedad (número, 0 para cancelar): ");
+
+        int seleccion;
+        try {
+            seleccion = Integer.parseInt(scanner.nextLine().trim());
+        } catch (NumberFormatException e) {
+            System.out.println("  ✗ Opción inválida.");
+            return;
+        }
+
+        if (seleccion == 0) {
+            return;
+        }
+        if (seleccion < 1 || seleccion > construibles.size()) {
+            System.out.println("  ✗ Opción inválida.");
+            return;
+        }
+
+        Propiedad elegida = construibles.get(seleccion - 1);
+        int coste = elegida.getPrecioCasa();
+        if (jugadorActual.getSaldo() < coste) {
+            System.out.println("  ✗ No tienes saldo suficiente para construir.");
+            return;
+        }
+
+        boolean eraCuartaCasa = !elegida.isHotel() && elegida.getCasas() == 4;
+        if (elegida.construirMejora()) {
+            jugadorActual.setSaldo(jugadorActual.getSaldo() - coste);
+            if (eraCuartaCasa) {
+                System.out.println("  ✓ Construiste 1 hotel en " + elegida.getNombre() + ".");
+            } else {
+                System.out.println("  ✓ Construiste 1 casa en " + elegida.getNombre() + ".");
+            }
+        }
+    }
+
+    private static boolean poseeGrupoCompleto(Jugador jugador, String grupoColor) {
+        int totalGrupo = 0;
+        int poseidas = 0;
+
+        for (Casilla casilla : tablero.getCasillas()) {
+            if (casilla instanceof Propiedad) {
+                Propiedad p = (Propiedad) casilla;
+                if (p.getGrupoColor().equals(grupoColor)) {
+                    totalGrupo++;
+                    if (p.getPropietario() == jugador) {
+                        poseidas++;
+                    }
+                }
+            }
+        }
+        return totalGrupo > 0 && totalGrupo == poseidas;
+    }
+
+    private static void declararBancarrota(Jugador jugador) {
+        List<Casilla> propiedades = new ArrayList<>(jugador.getPropiedadesCompradas());
+        for (Casilla casilla : propiedades) {
+            if (casilla instanceof Propiedad) {
+                Propiedad p = (Propiedad) casilla;
+                p.setPropietario(null);
+                p.reiniciarMejoras();
+            } else if (casilla instanceof Transporte) {
+                ((Transporte) casilla).setPropietario(null);
+            }
+            jugador.quitarPropiedad(casilla);
+        }
+
+        int indiceActual = juego.getTurnoActual();
+        int indiceEliminado = juego.getListaJugadores().indexOf(jugador);
+        juego.getListaJugadores().remove(jugador);
+        if (indiceEliminado >= 0 && indiceEliminado < indiceActual) {
+            juego.setTurnoActual(Math.max(0, indiceActual - 1));
+        }
     }
 }
