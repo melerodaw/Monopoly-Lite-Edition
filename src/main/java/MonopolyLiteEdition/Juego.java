@@ -54,7 +54,7 @@ public class Juego {
     }
 
     public Jugador verificarGanador() {
-        // Ejemplo simple: ganador = Ãºltimo con saldo > 0
+        // Ejemplo simple: ganador = Ultimo con saldo > 0
         if (listaJugadores == null || listaJugadores.isEmpty()) return null;
 
         Jugador candidato = null;

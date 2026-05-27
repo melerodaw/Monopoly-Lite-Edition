@@ -143,7 +143,7 @@ public class ProyectoGrupal {
 
             System.out.println("\n┌─ TURNO " + (turnoCount + 1) + " ─────────────────────────┐");
             System.out.println("│ Jugador: " + jugadorActual.getNombre());
-            System.out.println("│ Posición: " + jugadorActual.getPosicionActual() + " | Saldo: $" + jugadorActual.getSaldo());
+            System.out.println("│ Posición: " + jugadorActual.getPosicionActual() + " | Saldo: €" + jugadorActual.getSaldo());
             System.out.println("└────────────────────────────────────┘");
 
             // Manejo de cárcel
@@ -220,8 +220,8 @@ public class ProyectoGrupal {
 
         if (propietario == null) {
             System.out.println("  ┌─ PROPIEDAD DISPONIBLE ──────────────┐");
-            System.out.println("  │ " + propiedad.getNombre() + " — Precio: $" + propiedad.getPrecioCompra());
-            System.out.println("  │ Tu saldo: $" + jugadorActual.getSaldo());
+            System.out.println("  │ " + propiedad.getNombre() + " — Precio: €" + propiedad.getPrecioCompra());
+            System.out.println("  │ Tu saldo: €" + jugadorActual.getSaldo());
             System.out.println("  └────────────────────────────────────┘");
             System.out.print("  ¿Deseas comprar? (S/N): ");
 
@@ -230,7 +230,7 @@ public class ProyectoGrupal {
                     jugadorActual.setSaldo(jugadorActual.getSaldo() - propiedad.getPrecioCompra());
                     propiedad.setPropietario(jugadorActual);
                     jugadorActual.agregarPropiedad(propiedad);
-                    System.out.println("  ✓ Compraste " + propiedad.getNombre() + " por $" + propiedad.getPrecioCompra() + ".");
+                    System.out.println("  ✓ Compraste " + propiedad.getNombre() + " por €" + propiedad.getPrecioCompra() + ".");
                 } else {
                     System.out.println("  ✗ No tienes saldo suficiente para comprar " + propiedad.getNombre() + ".");
                 }
@@ -254,7 +254,7 @@ public class ProyectoGrupal {
 
         jugadorActual.setSaldo(jugadorActual.getSaldo() - renta);
         propietario.setSaldo(propietario.getSaldo() + renta);
-        System.out.println("    ✗ " + jugadorActual.getNombre() + " paga $" + renta + " de alquiler a " + propietario.getNombre());
+        System.out.println("    ✗ " + jugadorActual.getNombre() + " paga €" + renta + " de alquiler a " + propietario.getNombre());
         return false;
     }
 
@@ -263,8 +263,8 @@ public class ProyectoGrupal {
 
         if (propietario == null) {
             System.out.println("  ┌─ PROPIEDAD DISPONIBLE ──────────────┐");
-            System.out.println("  │ " + transporte.getNombre() + " — Precio: $" + transporte.getPrecioCompra());
-            System.out.println("  │ Tu saldo: $" + jugadorActual.getSaldo());
+            System.out.println("  │ " + transporte.getNombre() + " — Precio: €" + transporte.getPrecioCompra());
+            System.out.println("  │ Tu saldo: €" + jugadorActual.getSaldo());
             System.out.println("  └────────────────────────────────────┘");
             System.out.print("  ¿Deseas comprar? (S/N): ");
 
@@ -273,7 +273,7 @@ public class ProyectoGrupal {
                     jugadorActual.setSaldo(jugadorActual.getSaldo() - transporte.getPrecioCompra());
                     transporte.setPropietario(jugadorActual);
                     jugadorActual.agregarPropiedad(transporte);
-                    System.out.println("  ✓ Compraste " + transporte.getNombre() + " por $" + transporte.getPrecioCompra() + ".");
+                    System.out.println("  ✓ Compraste " + transporte.getNombre() + " por €" + transporte.getPrecioCompra() + ".");
                 } else {
                     System.out.println("  ✗ No tienes saldo suficiente para comprar " + transporte.getNombre() + ".");
                 }
@@ -297,7 +297,7 @@ public class ProyectoGrupal {
 
         jugadorActual.setSaldo(jugadorActual.getSaldo() - renta);
         propietario.setSaldo(propietario.getSaldo() + renta);
-        System.out.println("    ✗ " + jugadorActual.getNombre() + " paga $" + renta + " de alquiler a " + propietario.getNombre());
+        System.out.println("    ✗ " + jugadorActual.getNombre() + " paga €" + renta + " de alquiler a " + propietario.getNombre());
         return false;
     }
 
@@ -329,7 +329,7 @@ public class ProyectoGrupal {
         System.out.println("  ┌─ TUS PROPIEDADES ───────────────────┐");
         for (int i = 0; i < construibles.size(); i++) {
             Propiedad p = construibles.get(i);
-            System.out.println("  │ " + (i + 1) + ") " + p.getNombre() + " | Casas: " + p.getEstadoConstruccion() + " | Coste casa: $" + p.getPrecioCasa());
+            System.out.println("  │ " + (i + 1) + ") " + p.getNombre() + " | Casas: " + p.getEstadoConstruccion() + " | Coste casa: €" + p.getPrecioCasa());
         }
         System.out.println("  └────────────────────────────────────┘");
         System.out.print("  Elige propiedad (número, 0 para cancelar): ");
