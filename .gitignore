@@ -22,7 +22,6 @@ target/
 .springBeans
 .sts4-cache
 
-<<<<<<< HEAD
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
@@ -38,7 +37,6 @@ build/
 
 ### Mac OS ###
 .DS_Store
-=======
 # === SISTEMA OPERATIVO ===
 .DS_Store
 Thumbs.db
@@ -48,4 +46,3 @@ Thumbs.db
 *.iml
 target/
 dist/
->>>>>>> 39bbb362e2c73f50e5158e325469bd2be759819b
