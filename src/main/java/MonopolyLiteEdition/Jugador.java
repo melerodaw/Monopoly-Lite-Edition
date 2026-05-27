@@ -1,0 +1,84 @@
+package MonopolyLiteEdition;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Jugador {
+    private String nombre;
+    private int saldo;
+    private int posicionActual;
+    private boolean estaEnCarcel;
+    private int turnosRestantesCarcel;
+    private List<Casilla> propiedadesCompradas;
+
+    public Jugador() {
+        this.propiedadesCompradas = new ArrayList<>();
+    }
+
+    public Jugador(String nombre, int saldo, int posicionActual, boolean estaEnCarcel,
+                   int turnosRestantesCarcel, List<Casilla> propiedadesCompradas) {
+        this.nombre = nombre;
+        this.saldo = saldo;
+        this.posicionActual = posicionActual;
+        this.estaEnCarcel = estaEnCarcel;
+        this.turnosRestantesCarcel = turnosRestantesCarcel;
+        this.propiedadesCompradas = (propiedadesCompradas != null) ? propiedadesCompradas : new ArrayList<>();
+    }
+
+    public Jugador(Jugador j) {
+        this.nombre = j.nombre;
+        this.saldo = j.saldo;
+        this.posicionActual = j.posicionActual;
+        this.estaEnCarcel = j.estaEnCarcel;
+        this.turnosRestantesCarcel = j.turnosRestantesCarcel;
+        this.propiedadesCompradas = (j.propiedadesCompradas != null) ? new ArrayList<>(j.propiedadesCompradas) : new ArrayList<>();
+    }
+
+    public String getNombre() { return nombre; }
+    public int getSaldo() { return saldo; }
+    public int getPosicionActual() { return posicionActual; }
+    public boolean getEstaEnCarcel() { return estaEnCarcel; }
+    public int getTurnosRestantesCarcel() { return turnosRestantesCarcel; }
+    public List<Casilla> getPropiedadesCompradas() { return propiedadesCompradas; }
+
+    public void setNombre(String nombre) { this.nombre = nombre; }
+    public void setSaldo(int saldo) { this.saldo = saldo; }
+    public void setPosicionActual(int posicionActual) { this.posicionActual = posicionActual; }
+    public void setEstaEnCarcel(boolean estaEnCarcel) { this.estaEnCarcel = estaEnCarcel; }
+    public void setTurnosRestantesCarcel(int turnosRestantesCarcel) { this.turnosRestantesCarcel = turnosRestantesCarcel; }
+    public void setPropiedadesCompradas(List<Casilla> propiedadesCompradas) {
+        this.propiedadesCompradas = (propiedadesCompradas != null) ? propiedadesCompradas : new ArrayList<>();
+    }
+
+    public void agregarPropiedad(Casilla p) {
+        if (this.propiedadesCompradas == null) this.propiedadesCompradas = new ArrayList<>();
+        if (p != null && !this.propiedadesCompradas.contains(p)) {
+            this.propiedadesCompradas.add(p);
+        }
+    }
+
+    public void quitarPropiedad(Casilla p) {
+        if (this.propiedadesCompradas == null || p == null) {
+            return;
+        }
+        this.propiedadesCompradas.remove(p);
+    }
+
+    public void limpiarPropiedades() {
+        if (this.propiedadesCompradas != null) {
+            this.propiedadesCompradas.clear();
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Jugador{" +
+                "nombre='" + nombre + '\'' +
+                ", saldo=" + saldo +
+                ", posicionActual=" + posicionActual +
+                ", estaEnCarcel=" + estaEnCarcel +
+                ", turnosRestantesCarcel=" + turnosRestantesCarcel +
+                ", propiedadesCompradas=" + (propiedadesCompradas != null ? propiedadesCompradas.size() : 0) +
+                '}';
+    }
+}

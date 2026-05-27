@@ -1,0 +1,101 @@
+RESUMEN DE IMPLEMENTACION - MONOPOLY LITE EDITION
+==================================================
+
+ARCHIVOS CREADOS (Nuevos):
+==========================
+1. Baraja.java
+   - Gestiona baraja de cartas de suerte
+   - Metodos: cargarDesdeJson(), mezclarBaraja(), obtenerCartaSiguiente()
+   - Lee JSON de cartas_suerte.json
+
+2. TableroManager.java
+   - Carga tablero desde JSON
+   - Metodos separados para cada tipo de casilla
+   - Rellena automaticamente casillas vacias
+   - Lee JSON de tablero.json
+
+3. ReglasTirada.java
+   - Carga configuraciones de reglas
+   - Dinero inicial, premios, multas, etc.
+   - Lee JSON de reglas.json
+
+ARCHIVOS MODIFICADOS (Existentes):
+===================================
+1. Suerte.java
+   - Implemento ejecutarAccion() con logica de cartas
+   - Metodos separados para cada tipo de carta (BONO, MULTA, AVANZA, RETROCEDE, CARCEL, OTRO)
+   - toString() completo
+
+2. Casilla.java
+   - Completo metodo toString() vacio
+
+3. Carcel.java
+   - Completo metodo toString() vacio
+
+4. Juego.java
+   - Agregue metodo agregarJugador() para agregar jugadores dinamicamente
+
+5. ProyectoGrupal.java
+   - COMPLETAMENTE REFACTORIZADO con 35+ metodos
+   - Carga todos los JSON (tablero, cartas, reglas)
+   - Inicializa 2-4 jugadores interactivamente
+   - Loop principal de turnos con max 100 turnos
+   - Sistema de carcel, movimiento, acciones
+   - Deteccion de ganador cuando solo queda 1 jugador activo
+   - SIN EMOTICONOS - Solo texto plano
+
+FUNCIONALIDADES IMPLEMENTADAS:
+==============================
+- Carga dinamica de tablero desde JSON (20 casillas)
+- Sistema de baraja de cartas de suerte (10 cartas diferentes)
+- Cargas de reglas configurables
+- 2-4 jugadores con dinero inicial
+- Turnos rotativos
+- Lanzamiento de dados (1-6)
+- Movimiento circular del tablero
+- Ejecucion de acciones segun casilla:
+  * SALIDA: Premio de dinero
+  * PROPIEDAD: Compra/alquiler
+  * SUERTE: Efecto de carta
+  * TRANSPORTE: Compra/alquiler especial
+  * CARCEL: Encierro con duracion
+  * IR A CARCEL: Envio a carcel
+  * IMPUESTO: Pago obligatorio
+- Sistema de quiebra (saldo negativo)
+- Deteccion automatica de ganador
+
+ARCHIVOS JSON UTILIZADOS:
+=========================
+- tablero.json: Define 20 casillas del tablero
+- cartas_suerte.json: Define 10 cartas con efectos
+- reglas.json: Define parametros del juego
+
+FLUJO DEL PROGRAMA:
+===================
+1. Inicializa objetos (Juego, Dado, Scanner)
+2. Muestra bienvenida
+3. Carga todos los recursos JSON
+4. Solicita numero de jugadores (2-4)
+5. Solicita nombre de cada jugador
+6. Inicia partida
+7. Para cada turno (maximo 100):
+   - Muestra encabezado del turno
+   - Si esta en carcel: reduce turnos, libera si es necesario
+   - Si NO esta en carcel:
+     * Lanza dado (1-6)
+     * Mueve jugador en tablero circular
+     * Ejecuta accion de la casilla
+   - Verifica quiebra
+   - Espera confirmacion para continuar
+   - Siguiente turno
+8. Si queda 1 jugador activo: Anuncia ganador
+9. Muestra fin de partida
+
+MEJORAS IMPLEMENTADAS:
+=======================
+- Codigo modular y facil de mantener
+- 35+ metodos pequeños y especificos
+- Manejo de errores en cargas JSON
+- Validaciones de datos
+- Mensajes claro (sin emoticonos)
+- Interfaz por consola simple pero funcional
