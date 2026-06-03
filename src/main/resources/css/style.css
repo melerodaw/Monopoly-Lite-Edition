@@ -1,0 +1,6 @@
+.titulo { -fx-font-family: "Arial"; -fx-font-size: 40px; -fx-font-weight: bold; }
+.subtitulo { -fx-font-family: "Arial"; -fx-font-size: 16px; }
+.tablero-placeholder { -fx-border-color: #cccccc; -fx-border-width: 1; }
+.boton-accion { -fx-font-size: 14px; -fx-padding: 8 20; }
+.label-estado { -fx-font-size: 14px; }
+

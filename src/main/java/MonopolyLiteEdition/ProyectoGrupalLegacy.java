@@ -1,3 +1,4 @@
+// LEGACY — versión original conservada como referencia. No se usa en producción.
 package MonopolyLiteEdition;
 
 import javafx.application.Application;
@@ -11,7 +12,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
-public class ProyectoGrupal extends Application {
+public class ProyectoGrupalLegacy extends Application {
     @SuppressWarnings("unused")
     public static void main(String[] args) {
         launch(args);
