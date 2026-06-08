@@ -52,14 +52,19 @@ public class ProyectoGrupalController {
             return new TurnoResultado(0, 0, "Error", "Sin jugador activo", false, false);
         }
 
+        int posicionAnterior = jugador.getPosicionActual();
         int resultado = dado.generarAleatorio();
-        int nuevaPosicion = tablero.calcularNuevaPosicion(
-            jugador.getPosicionActual(),
-            resultado
-        );
+        int nuevaPosicion = tablero.calcularNuevaPosicion(posicionAnterior, resultado);
+
+        // Detectar si cruzó SALIDA (da la vuelta completa)
+        boolean cruzoSalida = (tablero != null && tablero.getCasillas() != null)
+            ? (posicionAnterior + resultado >= tablero.getCasillas().length)
+            : (posicionAnterior + resultado >= 20);
+
+        // Actualizar posición (algunas casillas pueden cambiarla de nuevo al ejecutar acción)
         jugador.setPosicionActual(nuevaPosicion);
 
-        Casilla casilla = tablero.obtenerCasillas(nuevaPosicion);
+        Casilla casilla = (tablero != null) ? tablero.obtenerCasillas(nuevaPosicion) : null;
         if (casilla == null) {
             return new TurnoResultado(resultado, nuevaPosicion, "Error", "Casilla no válida", false, false);
         }
@@ -68,7 +73,24 @@ public class ProyectoGrupalController {
         boolean puedoComprar = false;
         boolean debeTerminar = true;
 
-        // Determinar si puede comprar y generar descripción
+        // Si cruzó la salida, aplicar su efecto (buscar la casilla Salida y ejecutar)
+        if (cruzoSalida) {
+            if (tablero != null && tablero.getCasillas() != null) {
+                for (Casilla c : tablero.getCasillas()) {
+                    if (c instanceof Salida) {
+                        ((Salida) c).ejecutarAccion(jugador);
+                        descripcion = "Pasaste por SALIDA, ganaste $" + ((Salida) c).getMontoEfecto();
+                        break;
+                    }
+                }
+            } else {
+                // Valor por defecto
+                jugador.setSaldo(jugador.getSaldo() + 200);
+                descripcion = "Pasaste por SALIDA, ganaste $200";
+            }
+        }
+
+        // Determinar si puede comprar y generar descripción según tipo de casilla
         if (casilla instanceof Propiedad) {
             Propiedad prop = (Propiedad) casilla;
             if (prop.getPropietario() == null) {
@@ -94,12 +116,31 @@ public class ProyectoGrupalController {
                 descripcion = "Pagaste $" + renta + " de transporte a " + transp.getPropietario().getNombre();
             }
         } else if (casilla instanceof Salida) {
-            jugador.setSaldo(jugador.getSaldo() + 200);
-            descripcion = "Pasaste por SALIDA, ganaste $200";
+            // Si la casilla final es SALIDA, ejecutar su acción (podría repetir el cobro si ya se aplicó al cruzar)
+            Salida s = (Salida) casilla;
+            s.ejecutarAccion(jugador);
+            descripcion = "Pasaste/Caíste en SALIDA, ganaste $" + s.getMontoEfecto();
         } else if (casilla instanceof Impuesto) {
             Impuesto impuesto = (Impuesto) casilla;
             jugador.setSaldo(jugador.getSaldo() - impuesto.getMontoEfecto());
             descripcion = "Pagaste $" + impuesto.getMontoEfecto() + " de impuesto";
+        } else if (casilla instanceof IrACarcel) {
+            // Ejecutar acción de ir a la cárcel (cambia la posición del jugador)
+            IrACarcel ir = (IrACarcel) casilla;
+            ir.ejecutarAccion(jugador);
+            descripcion = "¡Vas a la cárcel! Ahora en casilla " + jugador.getPosicionActual();
+            puedoComprar = false;
+        } else if (casilla instanceof Suerte) {
+            Suerte s = (Suerte) casilla;
+            // Intentar usar método que devuelve descripción del efecto
+            try {
+                String descCarta = s.sacarYAplicarCarta(jugador);
+                descripcion = "Carta: " + descCarta;
+            } catch (Exception ex) {
+                // Fallback: ejecutar la acción sin descripción detallada
+                s.ejecutarAccion(jugador);
+                descripcion = "Has sacado una carta de Suerte";
+            }
         } else {
             descripcion = "Efecto de " + casilla.getNombre();
         }
@@ -188,6 +229,26 @@ public class ProyectoGrupalController {
                 reglas.cargarDesdeJson(reglasObj);
             } catch (Exception e) {
                 reglas = new ReglasTirada(); // Usar valores por defecto
+            }
+            // Cargar baraja de suerte y asignarla a casillas Suerte
+            try {
+                String cartasJson = new String(
+                    Files.readAllBytes(Paths.get(baseDir + "cartas_suerte.json"))
+                );
+                JsonObject cartasObj = gson.fromJson(cartasJson, JsonObject.class);
+                Baraja baraja = new Baraja();
+                baraja.cargarDesdeJson(cartasObj);
+
+                if (tablero != null && tablero.getCasillas() != null) {
+                    for (int i = 0; i < tablero.getCasillas().length; i++) {
+                        Casilla c = tablero.obtenerCasillas(i);
+                        if (c instanceof Suerte) {
+                            ((Suerte) c).setBaraja(baraja);
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                // No hay baraja; no es crítico para iniciar
             }
         } catch (IOException e) {
             System.err.println("Error al cargar recursos: " + e.getMessage());

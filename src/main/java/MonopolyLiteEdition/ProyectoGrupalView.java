@@ -72,50 +72,37 @@ public class ProyectoGrupalView extends Application {
         grid.setStyle("-fx-border-color: #000; -fx-border-width: 2;");
         grid.setHgap(0);
         grid.setVgap(0);
-
         List<Casilla> casillas = controller.getCasillasDelTablero();
 
-        // Distribuir casillas en el perímetro (7x7 grid, bordes solo)
-        int indice = 0;
+        // Limpiar mapa previo
+        casillaMap.clear();
 
-        // Fila 0 (arriba, izq→der): casillas 0-4
-        for (int col = 0; col < 5; col++) {
-            if (indice < casillas.size()) {
-                StackPane celda = crearCeldaTablero(casillas.get(indice), indice);
-                grid.add(celda, col, 0);
-                casillaMap.put(indice, celda);
-                indice++;
+        // Distribuir casillas en el perímetro (6x6 grid, centro 4x4 vacío)
+        // Posiciones definidas por especificación del tablero
+        for (int i = 0; i < casillas.size(); i++) {
+            Casilla c = casillas.get(i);
+            int row = 0, col = 0;
+            if (i >= 0 && i <= 4) {
+                // Fila 5 (abajo), columnas 5->1
+                row = 5;
+                col = 5 - i;
+            } else if (i >= 5 && i <= 9) {
+                // Columna 0 (izquierda), filas 5->1
+                col = 0;
+                row = 5 - (i - 5);
+            } else if (i >= 10 && i <= 14) {
+                // Fila 0 (arriba), columnas 0->4
+                row = 0;
+                col = i - 10;
+            } else if (i >= 15 && i <= 19) {
+                // Columna 5 (derecha), filas 0->4
+                col = 5;
+                row = i - 15;
             }
-        }
 
-        // Columna 6 (derecha, arr→ab): casillas 5-9
-        for (int row = 0; row < 5; row++) {
-            if (indice < casillas.size()) {
-                StackPane celda = crearCeldaTablero(casillas.get(indice), indice);
-                grid.add(celda, 6, row);
-                casillaMap.put(indice, celda);
-                indice++;
-            }
-        }
-
-        // Fila 6 (abajo, der→izq): casillas 10-14
-        for (int col = 6; col >= 2; col--) {
-            if (indice < casillas.size()) {
-                StackPane celda = crearCeldaTablero(casillas.get(indice), indice);
-                grid.add(celda, col, 6);
-                casillaMap.put(indice, celda);
-                indice++;
-            }
-        }
-
-        // Columna 0 (izquierda, ab→arr): casillas 15-19
-        for (int row = 6; row >= 2; row--) {
-            if (indice < casillas.size()) {
-                StackPane celda = crearCeldaTablero(casillas.get(indice), indice);
-                grid.add(celda, 0, row);
-                casillaMap.put(indice, celda);
-                indice++;
-            }
+            StackPane celda = crearCeldaTablero(c, i);
+            grid.add(celda, col, row);
+            casillaMap.put(i, celda);
         }
 
         // Centro (panel de información del turno)
@@ -136,8 +123,8 @@ public class ProyectoGrupalView extends Application {
 
         panelCentral.getChildren().addAll(labelJugador, labelSaldo, labelCasilla, labelAccion);
 
-        GridPane.setColumnSpan(panelCentral, 5);
-        GridPane.setRowSpan(panelCentral, 5);
+        GridPane.setColumnSpan(panelCentral, 4);
+        GridPane.setRowSpan(panelCentral, 4);
         grid.add(panelCentral, 1, 1);
 
         return grid;

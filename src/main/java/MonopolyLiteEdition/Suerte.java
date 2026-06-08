@@ -22,50 +22,56 @@ public class Suerte extends Casilla {
         this.baraja = baraja;
     }
 
-    @Override
-    public void ejecutarAccion(Jugador j) {
-        if (j == null || baraja == null) {
-            return;
-        }
+    /**
+     * Saca la siguiente carta de la baraja, aplica su efecto al jugador
+     * y devuelve una descripción del efecto (para mostrar en la UI).
+     */
+    public String sacarYAplicarCarta(Jugador j) {
+        if (j == null || baraja == null) return "No hay carta disponible";
 
         Carta carta = baraja.obtenerCartaSiguiente();
-        if (carta == null) {
-            return;
-        }
+        if (carta == null) return "No hay carta disponible";
 
-        System.out.println("  ➜ " + j.getNombre() + " sacó carta: " + carta.getDescripcion());
+        String descripcion = carta.getDescripcion();
 
         switch (carta.getTipo().toUpperCase()) {
             case "BONO":
                 j.setSaldo(j.getSaldo() + carta.getImporte());
-                System.out.println("    ✓ Ganas $" + carta.getImporte());
+                descripcion += " → +$" + carta.getImporte();
                 break;
             case "MULTA":
                 j.setSaldo(j.getSaldo() - carta.getImporte());
-                System.out.println("    ✗ Pierdes $" + carta.getImporte());
+                descripcion += " → -$" + carta.getImporte();
                 break;
             case "AVANZA":
                 j.setPosicionActual(0);
                 j.setSaldo(j.getSaldo() + carta.getImporte());
-                System.out.println("    ↻ Avanzo a SALIDA y gano $" + carta.getImporte());
+                descripcion += " → Avanzas a SALIDA y ganas $" + carta.getImporte();
                 break;
             case "RETROCEDE":
                 int nuevaPos = Math.max(0, j.getPosicionActual() - 3);
                 j.setPosicionActual(nuevaPos);
-                System.out.println("    ↺ Retrocedí 3 casillas");
+                descripcion += " → Retrocedes 3 casillas";
                 break;
             case "CARCEL":
                 j.setPosicionActual(5);
                 j.setEstaEnCarcel(true);
                 j.setTurnosRestantesCarcel(2);
-                System.out.println("    🔒 ¡A CARCEL!");
+                descripcion += " → ¡A la cárcel!";
                 break;
             case "OTRO":
-                System.out.println("    ℹ Efecto especial");
-                break;
             default:
+                descripcion += " → Efecto especial";
                 break;
         }
+
+        return descripcion;
+    }
+
+    @Override
+    public void ejecutarAccion(Jugador j) {
+        // Delegar a la versión que devuelve descripción (útil para UI)
+        sacarYAplicarCarta(j);
     }
 
     @Override
