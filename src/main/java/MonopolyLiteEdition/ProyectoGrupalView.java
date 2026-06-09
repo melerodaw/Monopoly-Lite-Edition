@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -38,22 +39,24 @@ public class ProyectoGrupalView extends Application {
         // Inicia el juego con 2 jugadores
         jugadores = controller.iniciarJuego(2);
 
-        // Panel principal
-        VBox root = new VBox(10);
+        // Panel principal - BorderPane
+        BorderPane root = new BorderPane();
         root.setPadding(new Insets(10));
 
-        // Título
+        // TOP: Título
         Label titulo = new Label("MONOPOLY LITE EDITION");
         titulo.getStyleClass().add("titulo");
-        root.getChildren().add(titulo);
+        root.setTop(titulo);
+        BorderPane.setAlignment(titulo, Pos.CENTER);
 
-        // Tablero visual (GridPane 7x7)
+        // CENTER: Tablero visual (GridPane 6x6)
         tableroGrid = crearTablero();
-        root.getChildren().add(tableroGrid);
+        root.setCenter(tableroGrid);
 
-        // Panel de controles y estado
-        HBox panelControl = crearPanelControl();
-        root.getChildren().add(panelControl);
+        // BOTTOM: Panel de información y controles
+        HBox panelInfo = crearPanelInformacion();
+        panelInfo.getStyleClass().add("panel-info");
+        root.setBottom(panelInfo);
 
         Scene scene = new Scene(root, 1000, 900);
         scene.getStylesheets().add(
@@ -105,27 +108,7 @@ public class ProyectoGrupalView extends Application {
             casillaMap.put(i, celda);
         }
 
-        // Centro (panel de información del turno)
-        VBox panelCentral = new VBox(5);
-        panelCentral.getStyleClass().add("panel-central");
-        panelCentral.setPadding(new Insets(10));
-        panelCentral.setAlignment(Pos.CENTER);
-        panelCentral.setStyle("-fx-background-color: #f8f9fa; -fx-border-color: #dee2e6; -fx-border-width: 1;");
-
-        labelJugador = new Label("Turno: Rojo");
-        labelJugador.getStyleClass().add("label-jugador");
-        labelSaldo = new Label("Saldo: $1500");
-        labelSaldo.getStyleClass().add("label-saldo");
-        labelCasilla = new Label("Casilla: Salida");
-        labelAccion = new Label("Presiona 'Lanzar Dado'");
-        labelAccion.getStyleClass().add("label-accion");
-        labelAccion.setWrapText(true);
-
-        panelCentral.getChildren().addAll(labelJugador, labelSaldo, labelCasilla, labelAccion);
-
-        GridPane.setColumnSpan(panelCentral, 4);
-        GridPane.setRowSpan(panelCentral, 4);
-        grid.add(panelCentral, 1, 1);
+        // El hueco central (filas 1-4, columnas 1-4) queda completamente vacío
 
         return grid;
     }
@@ -190,14 +173,50 @@ public class ProyectoGrupalView extends Application {
         return "casilla";
     }
 
-    private HBox crearPanelControl() {
-        HBox panel = new HBox(10);
-        panel.setPadding(new Insets(10));
-        panel.setAlignment(Pos.CENTER_LEFT);
+    private HBox crearPanelInformacion() {
+        // Panel principal BOTTOM - HBox con 3 columnas
+        HBox panelInfo = new HBox(30);
+        panelInfo.setPadding(new Insets(15));
+        panelInfo.setAlignment(Pos.CENTER_LEFT);
+        panelInfo.setStyle("-fx-min-height: 120;");
 
-        // Botones de acción
+        // Columna izquierda: información del jugador
+        VBox columnaIzquierda = new VBox(5);
+        columnaIzquierda.setAlignment(Pos.TOP_LEFT);
+
+        labelJugador = new Label("Turno: Rojo");
+        labelJugador.getStyleClass().add("label-jugador");
+
+        labelSaldo = new Label("Saldo: $1500");
+        labelSaldo.getStyleClass().add("label-saldo");
+
+        labelCasilla = new Label("Casilla: Salida");
+        labelCasilla.getStyleClass().add("label-casilla");
+
+        columnaIzquierda.getChildren().addAll(labelJugador, labelSaldo, labelCasilla);
+
+        // Columna central: resultado del dado y acción
+        VBox columnaCentral = new VBox(5);
+        columnaCentral.setAlignment(Pos.TOP_LEFT);
+        columnaCentral.setMinWidth(300);
+
+        labelResultadoDado = new Label("🎲");
+        labelResultadoDado.getStyleClass().add("label-dado");
+        labelResultadoDado.setStyle("-fx-font-size: 24px;");
+
+        labelAccion = new Label("Presiona 'Lanzar Dado'");
+        labelAccion.getStyleClass().add("label-accion");
+        labelAccion.setWrapText(true);
+        labelAccion.setMaxWidth(250);
+
+        columnaCentral.getChildren().addAll(labelResultadoDado, labelAccion);
+
+        // Columna derecha: botones de acción
+        VBox columnaDerecha = new VBox(5);
+        columnaDerecha.setAlignment(Pos.TOP_LEFT);
+
         botonDado = new Button("Lanzar dado");
-        botonDado.getStyleClass().add("boton-turno");
+        botonDado.getStyleClass().add("boton-accion");
         botonDado.setOnAction(e -> ejecutarLanzarDado());
 
         botonComprar = new Button("Comprar");
@@ -210,11 +229,12 @@ public class ProyectoGrupalView extends Application {
         botonTerminarTurno.setDisable(true);
         botonTerminarTurno.setOnAction(e -> ejecutarTerminarTurno());
 
-        labelResultadoDado = new Label("🎲");
-        labelResultadoDado.setStyle("-fx-font-size: 24px;");
+        columnaDerecha.getChildren().addAll(botonDado, botonComprar, botonTerminarTurno);
 
-        panel.getChildren().addAll(botonDado, labelResultadoDado, botonComprar, botonTerminarTurno);
-        return panel;
+        // Agregar columnas al panel principal
+        panelInfo.getChildren().addAll(columnaIzquierda, columnaCentral, columnaDerecha);
+
+        return panelInfo;
     }
 
     private void ejecutarLanzarDado() {

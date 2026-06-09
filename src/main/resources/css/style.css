@@ -12,15 +12,22 @@
 .casilla-salida     { -fx-background-color: #cce5ff; }
 .casilla-transporte { -fx-background-color: #d6d8db; }
 
-/* Panel central */
+/* Panel central (antiguo) */
 .panel-central { -fx-background-color: #f8f9fa;
                  -fx-border-color: #dee2e6; -fx-border-width: 1; }
 .label-jugador  { -fx-font-size: 16px; -fx-font-weight: bold; }
 .label-saldo    { -fx-font-size: 14px; -fx-text-fill: #28a745; }
+.label-casilla  { -fx-font-size: 13px; }
 .label-dado     { -fx-font-size: 28px; }
 .label-accion   { -fx-font-size: 12px; -fx-wrap-text: true; }
+.boton-accion   { -fx-background-color: #007bff; -fx-text-fill: white; }
 .boton-comprar  { -fx-background-color: #28a745; -fx-text-fill: white; }
 .boton-turno    { -fx-background-color: #007bff; -fx-text-fill: white; }
+
+/* Panel de información (BOTTOM) */
+.panel-info { -fx-background-color: #f8f9fa;
+              -fx-border-color: #dee2e6;
+              -fx-border-width: 1 0 0 0; }
 
 /* Tokens de jugadores (círculos de colores) */
 .token-j1 { -fx-background-color: #e74c3c;
